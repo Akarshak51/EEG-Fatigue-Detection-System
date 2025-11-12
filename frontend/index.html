@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EEG Simulator Dashboard</title>
+  <style>
+    body { font-family: sans-serif; background: #111; color: #0f0; text-align: center; }
+    canvas { border: 1px solid #0f0; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>EEG Signal Simulation</h1>
+  <canvas id="chart" width="800" height="400"></canvas>
+  <script>
+    const ws = new WebSocket("ws://localhost:8000/v1/ws/eeg");
+    const canvas = document.getElementById("chart");
+    const ctx = canvas.getContext("2d");
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data).eeg_data || [];
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.beginPath();
+      data.forEach((v, i) => {
+        const x = (i / data.length) * canvas.width;
+        const y = canvas.height / 2 - v;
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      });
+      ctx.strokeStyle = "#0f0";
+      ctx.stroke();
+    };
+  </script>
+</body>
+</html>
