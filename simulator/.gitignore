@@ -1,6 +1,34 @@
+# Python
 __pycache__/
-*.pyc
-.env
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
 .venv/
-.vscode/
+.env
+venv/
+env/
 .idea/
+.vscode/
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# OS files
+Thumbs.db
+desktop.ini
+
+# Cache
+*.cache
+__pycache__/
+
+# EEG data and plots
+*.csv
+*.json
+*.png
+*.jpg
+*.jpeg
+*.mp4
+backend/saved_eeg/
